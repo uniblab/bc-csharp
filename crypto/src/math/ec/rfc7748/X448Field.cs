@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
 using System.Runtime.CompilerServices;
-#endif
 #if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
 using System.Buffers.Binary;
 using System.Numerics;
@@ -28,13 +26,11 @@ namespace Org.BouncyCastle.Math.EC.Rfc7748
             0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFEU, 0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU, 0xFFFFFFFFU,
             0xFFFFFFFFU };
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        public static void Add(uint[] x, uint[] y, uint[] z)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static void Add(uint[] x, uint[] y, uint[] z)
         {
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-            Add(x.AsSpan(), y.AsSpan(), z.AsSpan());
+#if NETCOREAPP2_1_OR_GREATER || NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+			Add( x.AsSpan(), y.AsSpan(), z.AsSpan());
 #else
             for (int i = 0; i < Size; ++i)
             {
@@ -43,7 +39,7 @@ namespace Org.BouncyCastle.Math.EC.Rfc7748
 #endif
         }
 
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NETCOREAPP2_1_OR_GREATER || NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Add(ReadOnlySpan<uint> x, ReadOnlySpan<uint> y, Span<uint> z)
         {
@@ -53,10 +49,18 @@ namespace Org.BouncyCastle.Math.EC.Rfc7748
                 int limit = Size - Vector<uint>.Count;
                 while (i <= limit)
                 {
-                    var vx = new Vector<uint>(x[i..]);
-                    var vy = new Vector<uint>(y[i..]);
-                    (vx + vy).CopyTo(z[i..]);
-                    i += Vector<uint>.Count;
+                    var vx = new Vector<uint>(x[i..].ToArray());
+                    var vy = new Vector<uint>(y[i..].ToArray() );
+					var vxy = ( vx + vy );
+                    var vc = Vector<uint>.Count;
+#if NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
+                    vxy.CopyTo(z[i..]);
+#else
+					for ( var q = 0; q < vc; q++ ) {
+                        z[i + q] = vxy[q];
+                    }
+#endif
+					i += vc;
                 }
             }
             {
@@ -69,7 +73,7 @@ namespace Org.BouncyCastle.Math.EC.Rfc7748
         }
 #endif
 
-        public static void AddOne(uint[] z)
+		public static void AddOne(uint[] z)
         {
             z[0] += 1;
         }

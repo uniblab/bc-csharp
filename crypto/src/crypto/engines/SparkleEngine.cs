@@ -966,10 +966,8 @@ namespace Org.BouncyCastle.Crypto.Engines
             }
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private static void ArxBox(uint rc, ref uint s00, ref uint s01)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private static void ArxBox(uint rc, ref uint s00, ref uint s01)
         {
             s00 += Integers.RotateRight(s01, 31);
             s01 ^= Integers.RotateRight(s00, 24);
@@ -985,18 +983,14 @@ namespace Org.BouncyCastle.Crypto.Engines
             s00 ^= rc;
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private static uint ELL(uint x)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private static uint ELL(uint x)
         {
             return Integers.RotateRight(x, 16) ^ (x & 0xFFFFU);
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private static void SparkleOpt(uint[] state, int steps)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private static void SparkleOpt(uint[] state, int steps)
         {
             switch (state.Length)
             {

@@ -1,7 +1,5 @@
 using System;
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
 using System.Runtime.CompilerServices;
-#endif
 #if NETCOREAPP3_0_OR_GREATER
 using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics;
@@ -1774,12 +1772,14 @@ namespace Org.BouncyCastle.Crypto.Modes
             multiplier.MultiplyH(Y);
         }
 #else
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void gHASHBlock(byte[] Y, byte[] b)
         {
             GcmUtilities.Xor(Y, b);
             multiplier.MultiplyH(Y);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void gHASHBlock(byte[] Y, byte[] b, int off)
         {
             GcmUtilities.Xor(Y, b, off);
@@ -1787,7 +1787,7 @@ namespace Org.BouncyCastle.Crypto.Modes
         }
 #endif
 
-        private void gHASHPartial(byte[] Y, byte[] b, int off, int len)
+		private void gHASHPartial(byte[] Y, byte[] b, int off, int len)
         {
             GcmUtilities.Xor(Y, b, off, len);
             multiplier.MultiplyH(Y);

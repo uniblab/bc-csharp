@@ -639,10 +639,8 @@ namespace Org.BouncyCastle.Crypto.Digests
             }
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private static void G(ulong m1, ulong m2, ref ulong a, ref ulong b, ref ulong c, ref ulong d)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private static void G(ulong m1, ulong m2, ref ulong a, ref ulong b, ref ulong c, ref ulong d)
         {
             a += b + m1;
             d = Longs.RotateRight(d ^ a, 32);

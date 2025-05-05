@@ -202,9 +202,7 @@ namespace Org.BouncyCastle.Crypto.Engines
 			}
 		}
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
 		internal void ImplProcessBlock(byte[] inBuf, int inOff, byte[] outBuf, int outOff)
         {
 			ChaChaEngine.ChachaCore(rounds, engineState, keyStream);

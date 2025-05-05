@@ -472,10 +472,8 @@ namespace Org.BouncyCastle.Crypto.Engines
 			return false;
 		}
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private static void QuarterRound(ref uint a, ref uint b, ref uint c, ref uint d)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private static void QuarterRound(ref uint a, ref uint b, ref uint c, ref uint d)
 		{
             b ^= Integers.RotateLeft(a + d,  7);
             c ^= Integers.RotateLeft(b + a,  9);

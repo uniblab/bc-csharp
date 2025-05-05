@@ -2843,17 +2843,17 @@ namespace Org.BouncyCastle.Math.Raw
 
         public static void Xor64(int len, ulong[] x, int xOff, ulong y, ulong[] z, int zOff)
         {
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NETCOREAPP2_1_OR_GREATER || NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             Xor64(len, x.AsSpan(xOff, len), y, z.AsSpan(zOff, len));
 #else
-            for (int i = 0; i < len; ++i)
+			for ( int i = 0; i < len; ++i)
             {
                 z[zOff + i] = x[xOff + i] ^ y;
             }
 #endif
         }
 
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NETCOREAPP2_1_OR_GREATER || NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         public static void Xor64(int len, ReadOnlySpan<ulong> x, ulong y, Span<ulong> z)
         {
             int i = 0;
@@ -2864,9 +2864,17 @@ namespace Org.BouncyCastle.Math.Raw
                 int limit = len - Vector<ulong>.Count;
                 while (i <= limit)
                 {
-                    var vx = new Vector<ulong>(x[i..]);
-                    (vx ^ vy).CopyTo(z[i..]);
-                    i += Vector<ulong>.Count;
+                    var vx = new Vector<ulong>(x[i..].ToArray());
+					var vxy = ( vx + vy );
+                    var vc = Vector<uint>.Count;
+#if NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
+                    vxy.CopyTo(z[i..]);
+#else
+					for ( var q = 0; q < vc; q++ ) {
+                        z[i + q] = vxy[q];
+                    }
+#endif
+                    i += vc;
                 }
             }
             else
@@ -2889,7 +2897,7 @@ namespace Org.BouncyCastle.Math.Raw
         }
 #endif
 
-        public static void Xor64(int len, ulong[] x, ulong[] y, ulong[] z)
+		public static void Xor64(int len, ulong[] x, ulong[] y, ulong[] z)
         {
 #if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             Xor64(len, x.AsSpan(0, len), y.AsSpan(0, len), z.AsSpan(0, len));

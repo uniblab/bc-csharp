@@ -1,6 +1,6 @@
 ﻿using System;
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
 using System.Runtime.CompilerServices;
+#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
 using System.Runtime.InteropServices;
 #endif
 
@@ -11,13 +11,14 @@ namespace Org.BouncyCastle.Math.EC.Rfc8032
     internal static class ScalarUtilities
     {
 #if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void AddShifted_NP(int last, int s, Span<uint> Nu, ReadOnlySpan<uint> Nv, Span<uint> p, Span<uint> t)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		internal static void AddShifted_NP(int last, int s, Span<uint> Nu, ReadOnlySpan<uint> Nv, Span<uint> p, Span<uint> t)
 #else
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
         internal static void AddShifted_NP(int last, int s, uint[] Nu, uint[] Nv, uint[] p, uint[] t)
 #endif
-        {
-            ulong cc_p = 0UL;
+		{
+			ulong cc_p = 0UL;
             ulong cc_Nu = 0UL;
 
             if (s == 0)
@@ -133,10 +134,11 @@ namespace Org.BouncyCastle.Math.EC.Rfc8032
         internal static void AddShifted_UV(int last, int s, Span<uint> u0, Span<uint> u1, ReadOnlySpan<uint> v0,
             ReadOnlySpan<uint> v1)
 #else
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void AddShifted_UV(int last, int s, uint[] u0, uint[] u1, uint[] v0, uint[] v1)
 #endif
-        {
-            int sWords = s >> 5, sBits = s & 31;
+		{
+			int sWords = s >> 5, sBits = s & 31;
 
             ulong cc_u0 = 0UL;
             ulong cc_u1 = 0UL;
@@ -181,10 +183,11 @@ namespace Org.BouncyCastle.Math.EC.Rfc8032
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int GetBitLength(int last, ReadOnlySpan<uint> x)
 #else
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int GetBitLength(int last, uint[] x)
 #endif
-        {
-            int i = last;
+		{
+			int i = last;
             uint sign = (uint)((int)x[i] >> 31);
             while (i > 0 && x[i] == sign)
             {
@@ -197,10 +200,11 @@ namespace Org.BouncyCastle.Math.EC.Rfc8032
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int GetBitLengthPositive(int last, ReadOnlySpan<uint> x)
 #else
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int GetBitLengthPositive(int last, uint[] x)
 #endif
-        {
-            int i = last;
+		{
+			int i = last;
             while (i > 0 && x[i] == 0)
             {
                 --i;
@@ -212,10 +216,11 @@ namespace Org.BouncyCastle.Math.EC.Rfc8032
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool LessThan(int last, ReadOnlySpan<uint> x, ReadOnlySpan<uint> y)
 #else
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool LessThan(int last, uint[] x, uint[] y)
 #endif
-        {
-            int i = last;
+		{
+			int i = last;
             do
             {
                 if (x[i] < y[i])
@@ -231,10 +236,11 @@ namespace Org.BouncyCastle.Math.EC.Rfc8032
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void SubShifted_NP(int last, int s, Span<uint> Nu, ReadOnlySpan<uint> Nv, Span<uint> p, Span<uint> t)
 #else
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void SubShifted_NP(int last, int s, uint[] Nu, uint[] Nv, uint[] p, uint[] t)
 #endif
-        {
-            long cc_p = 0L;
+		{
+			long cc_p = 0L;
             long cc_Nu = 0L;
 
             if (s == 0)
@@ -350,10 +356,11 @@ namespace Org.BouncyCastle.Math.EC.Rfc8032
         internal static void SubShifted_UV(int last, int s, Span<uint> u0, Span<uint> u1, ReadOnlySpan<uint> v0,
             ReadOnlySpan<uint> v1)
 #else
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void SubShifted_UV(int last, int s, uint[] u0, uint[] u1, uint[] v0, uint[] v1)
 #endif
-        {
-            int sWords = s >> 5, sBits = s & 31;
+		{
+			int sWords = s >> 5, sBits = s & 31;
 
             long cc_u0 = 0L;
             long cc_u1 = 0L;
@@ -398,10 +405,11 @@ namespace Org.BouncyCastle.Math.EC.Rfc8032
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void Swap(ref Span<uint> x, ref Span<uint> y)
 #else
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void Swap(ref uint[] x, ref uint[] y)
 #endif
-        {
-            var t = x; x = y; y = t;
+		{
+			var t = x; x = y; y = t;
         }
     }
 }

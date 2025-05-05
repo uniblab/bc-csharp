@@ -406,7 +406,7 @@ namespace Org.BouncyCastle.Utilities
             if (data == null)
                 return 0;
 
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER
             HashCode hc = default;
             hc.AddBytes(data);
             return hc.ToHashCode();
@@ -429,7 +429,7 @@ namespace Org.BouncyCastle.Utilities
             if (data == null)
                 return 0;
 
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER
             HashCode hc = default;
             hc.AddBytes(data.AsSpan(off, len));
             return hc.ToHashCode();
@@ -452,12 +452,12 @@ namespace Org.BouncyCastle.Utilities
             if (data == null)
                 return 0;
 
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER
             HashCode hc = default;
             hc.AddBytes(MemoryMarshal.AsBytes(data.AsSpan()));
             return hc.ToHashCode();
 #else
-            int i = data.Length;
+			int i = data.Length;
             int hc = i + 1;
 
             while (--i >= 0)
@@ -476,12 +476,12 @@ namespace Org.BouncyCastle.Utilities
             if (data == null)
                 return 0;
 
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER
             HashCode hc = default;
             hc.AddBytes(MemoryMarshal.AsBytes(data.AsSpan()));
             return hc.ToHashCode();
 #else
-            int i = data.Length;
+			int i = data.Length;
             int hc = i + 1;
 
             while (--i >= 0)
@@ -499,12 +499,12 @@ namespace Org.BouncyCastle.Utilities
             if (data == null)
                 return 0;
 
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER
             HashCode hc = default;
             hc.AddBytes(MemoryMarshal.AsBytes(data.AsSpan(off, len)));
             return hc.ToHashCode();
 #else
-            int i = len;
+			int i = len;
             int hc = i + 1;
 
             while (--i >= 0)
@@ -523,12 +523,12 @@ namespace Org.BouncyCastle.Utilities
             if (data == null)
                 return 0;
 
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER
             HashCode hc = default;
             hc.AddBytes(MemoryMarshal.AsBytes(data.AsSpan()));
             return hc.ToHashCode();
 #else
-            int i = data.Length;
+			int i = data.Length;
             int hc = i + 1;
 
             while (--i >= 0)
@@ -547,12 +547,12 @@ namespace Org.BouncyCastle.Utilities
             if (data == null)
                 return 0;
 
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER
             HashCode hc = default;
             hc.AddBytes(MemoryMarshal.AsBytes(data.AsSpan(off, len)));
             return hc.ToHashCode();
 #else
-            int i = len;
+			int i = len;
             int hc = i + 1;
 
             while (--i >= 0)
@@ -571,12 +571,12 @@ namespace Org.BouncyCastle.Utilities
             if (data == null)
                 return 0;
 
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER
             HashCode hc = default;
             hc.AddBytes(MemoryMarshal.AsBytes(data.AsSpan()));
             return hc.ToHashCode();
 #else
-            int i = data.Length;
+			int i = data.Length;
             int hc = i + 1;
 
             while (--i >= 0)
@@ -598,12 +598,12 @@ namespace Org.BouncyCastle.Utilities
             if (data == null)
                 return 0;
 
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER
             HashCode hc = default;
             hc.AddBytes(MemoryMarshal.AsBytes(data.AsSpan(off, len)));
             return hc.ToHashCode();
 #else
-            int i = len;
+			int i = len;
             int hc = i + 1;
 
             while (--i >= 0)
@@ -626,7 +626,7 @@ namespace Org.BouncyCastle.Utilities
 
             int len = data.Length;
 
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
             HashCode hc = default;
             for (int i = 0; i < len; ++i)
             {

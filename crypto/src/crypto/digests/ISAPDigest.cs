@@ -184,10 +184,8 @@ namespace Org.BouncyCastle.Crypto.Digests
             ROUND(0x4bUL);
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private void ROUND(ulong c)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private void ROUND(ulong c)
         {
             ulong t0 = x0 ^ x1 ^ x2 ^ x3 ^ c ^ (x1 & (x0 ^ x2 ^ x4 ^ c));
             ulong t1 = x0 ^ x2 ^ x3 ^ x4 ^ c ^ ((x1 ^ x2 ^ c) & (x1 ^ x3));

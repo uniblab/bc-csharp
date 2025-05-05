@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
+
 #if NETCOREAPP3_0_OR_GREATER
 using System.Runtime.CompilerServices;
 #endif
@@ -483,10 +485,8 @@ namespace Org.BouncyCastle.Crypto.Generators
             }
         }
 
-#if NETCOREAPP3_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private static void GB(ref ulong a, ref ulong b, ref ulong c, ref ulong d)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private static void GB(ref ulong a, ref ulong b, ref ulong c, ref ulong d)
         {
             a += b + 2 * Mul32((uint)a, (uint)b);
             d = Longs.RotateRight(d ^ a, 32);
@@ -499,10 +499,8 @@ namespace Org.BouncyCastle.Crypto.Generators
             b = Longs.RotateRight(b ^ c, 63);
         }
 
-#if NETCOREAPP3_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private static ulong Mul32(uint a, uint b) => (ulong)a * b;
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private static ulong Mul32(uint a, uint b) => (ulong)a * b;
 
         private void Initialize(byte[] tmpBlockBytes, byte[] password, int outputLength)
         {

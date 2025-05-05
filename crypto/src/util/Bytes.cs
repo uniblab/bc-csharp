@@ -13,10 +13,10 @@ namespace Org.BouncyCastle.Utilities
 
         public static void Xor(int len, byte[] x, byte[] y, byte[] z)
         {
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NETCOREAPP2_1_OR_GREATER || NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             Xor(len, x.AsSpan(0, len), y.AsSpan(0, len), z.AsSpan(0, len));
 #else
-            for (int i = 0; i < len; ++i)
+			for ( int i = 0; i < len; ++i)
             {
                 z[i] = (byte)(x[i] ^ y[i]);
             }
@@ -25,17 +25,17 @@ namespace Org.BouncyCastle.Utilities
 
         public static void Xor(int len, byte[] x, int xOff, byte[] y, int yOff, byte[] z, int zOff)
         {
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NETCOREAPP2_1_OR_GREATER || NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             Xor(len, x.AsSpan(xOff, len), y.AsSpan(yOff, len), z.AsSpan(zOff, len));
 #else
-            for (int i = 0; i < len; ++i)
+			for ( int i = 0; i < len; ++i)
             {
                 z[zOff + i] = (byte)(x[xOff + i] ^ y[yOff + i]);
             }
 #endif
         }
 
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NETCOREAPP2_1_OR_GREATER || NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         public static void Xor(int len, ReadOnlySpan<byte> x, ReadOnlySpan<byte> y, Span<byte> z)
         {
             int i = 0;
@@ -44,10 +44,18 @@ namespace Org.BouncyCastle.Utilities
                 int limit = len - Vector<byte>.Count;
                 while (i <= limit)
                 {
-                    var vx = new Vector<byte>(x[i..]);
-                    var vy = new Vector<byte>(y[i..]);
-                    (vx ^ vy).CopyTo(z[i..]);
-                    i += Vector<byte>.Count;
+                    var vx = new Vector<byte>(x[i..].ToArray());
+                    var vy = new Vector<byte>(y[i..].ToArray());
+					var vxy = ( vx + vy );
+                    var vc = Vector<uint>.Count;
+#if NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
+                    vxy.CopyTo(z[i..]);
+#else
+					for ( var q = 0; q < vc; q++ ) {
+                        z[i + q] = vxy[q];
+                    }
+#endif
+					i += vc;
                 }
             }
             {
@@ -71,7 +79,7 @@ namespace Org.BouncyCastle.Utilities
         }
 #endif
 
-        public static void XorTo(int len, byte[] x, byte[] z)
+		public static void XorTo(int len, byte[] x, byte[] z)
         {
 #if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             XorTo(len, x.AsSpan(0, len), z.AsSpan(0, len));
@@ -85,17 +93,17 @@ namespace Org.BouncyCastle.Utilities
 
         public static void XorTo(int len, byte[] x, int xOff, byte[] z, int zOff)
         {
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NETCOREAPP2_1_OR_GREATER || NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
             XorTo(len, x.AsSpan(xOff, len), z.AsSpan(zOff, len));
 #else
-            for (int i = 0; i < len; ++i)
+			for ( int i = 0; i < len; ++i)
             {
                 z[zOff + i] ^= x[xOff + i];
             }
 #endif
         }
 
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NETCOREAPP2_1_OR_GREATER || NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         public static void XorTo(int len, ReadOnlySpan<byte> x, Span<byte> z)
         {
             int i = 0;
@@ -104,10 +112,18 @@ namespace Org.BouncyCastle.Utilities
                 int limit = len - Vector<byte>.Count;
                 while (i <= limit)
                 {
-                    var vx = new Vector<byte>(x[i..]);
-                    var vz = new Vector<byte>(z[i..]);
-                    (vx ^ vz).CopyTo(z[i..]);
-                    i += Vector<byte>.Count;
+                    var vx = new Vector<byte>(x[i..].ToArray());
+                    var vz = new Vector<byte>(z[i..].ToArray());
+                    var vxz = (vx ^ vz);
+                    var vc = Vector<byte>.Count;
+#if NETCOREAPP3_0_OR_GREATER || NET5_0_OR_GREATER
+                    vxz.CopyTo(z[i..]);
+#else
+					for ( var q = 0; q < vc; q++ ) {
+                        z[i + q] = vxz[q];
+                    }
+#endif
+                    i += vc;
                 }
             }
             {
@@ -130,5 +146,5 @@ namespace Org.BouncyCastle.Utilities
             }
         }
 #endif
-    }
+	}
 }

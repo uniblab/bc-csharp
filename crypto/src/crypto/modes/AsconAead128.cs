@@ -983,10 +983,8 @@ namespace Org.BouncyCastle.Crypto.Modes
             }
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private void Round(ulong c)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private void Round(ulong c)
         {
             ulong SX = S2 ^ c;
             ulong t0 = S0 ^ S1 ^ SX ^ S3 ^ (S1 & (S0 ^ SX ^ S4));
@@ -1001,9 +999,7 @@ namespace Org.BouncyCastle.Crypto.Modes
             S4 = t4 ^ Longs.RotateRight(t4, 7) ^ Longs.RotateRight(t4, 41);
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private static ulong Pad(int i) => 0x01UL << (i << 3);
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private static ulong Pad(int i) => 0x01UL << (i << 3);
     }
 }

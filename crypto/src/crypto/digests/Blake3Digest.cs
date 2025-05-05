@@ -796,13 +796,11 @@ namespace Org.BouncyCastle.Crypto.Digests
             AdjustChaining();
         }
 
-        /**
+		/**
          * Perform a round.
          */
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private void PerformRound()
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private void PerformRound()
         {
             /* Apply to columns of V */
             MixG(0, CHAINING0, CHAINING4, IV0, COUNT0);
@@ -848,7 +846,7 @@ namespace Org.BouncyCastle.Crypto.Digests
             }
         }
 
-        /**
+		/**
          * Mix function G.
          *
          * @param msgIdx the message index
@@ -857,10 +855,8 @@ namespace Org.BouncyCastle.Crypto.Digests
          * @param posC   position C in V
          * @param posD   poistion D in V
          */
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private void MixG(int msgIdx, int posA, int posB, int posC, int posD)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private void MixG(int msgIdx, int posA, int posB, int posC, int posD)
         {
             /* Determine indices */
             int msg = msgIdx << 1;

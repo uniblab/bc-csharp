@@ -319,10 +319,8 @@ namespace Org.BouncyCastle.Crypto.Engines
             return key;
 		}
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private static long F(int ki0, int ki1, long r)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private static long F(int ki0, int ki1, long r)
         {
             int r0 = ki0 ^ (int)(r >> 32);
             int r1 = ki1 ^ (int)r;
@@ -336,10 +334,8 @@ namespace Org.BouncyCastle.Crypto.Engines
             return (long)rd0 << 32 | rd1 & 0xFFFFFFFFL;
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private static int G(int x)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private static int G(int x)
         {
             return (int)(SS0[x & 0xff] ^ SS1[(x >> 8) & 0xff] ^ SS2[(x >> 16) & 0xff] ^ SS3[(x >> 24) & 0xff]);
         }

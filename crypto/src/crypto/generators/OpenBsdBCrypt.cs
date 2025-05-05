@@ -241,7 +241,7 @@ namespace Org.BouncyCastle.Crypto.Generators
                 throw new DataLengthException("Invalid base64 salt length: " + saltString.Length + " , 22 required.");
 
             // Padding: add two '\u0000'
-#if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+#if NET6_0_OR_GREATER
             Span<char> saltChars = stackalloc char[24];
             saltString.CopyTo(saltChars);
 #else

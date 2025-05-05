@@ -6,10 +6,8 @@ namespace Org.BouncyCastle.Crypto.Kems.MLKem
 {
     internal static class Reduce
     {
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        internal static short MontgomeryReduce(int a)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		internal static short MontgomeryReduce(int a)
         {
             short u = (short)(a * MLKemEngine.QInv);
             int t = u * MLKemEngine.Q;
@@ -18,10 +16,8 @@ namespace Org.BouncyCastle.Crypto.Kems.MLKem
             return (short)t;
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        internal static short BarrettReduce(short a)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		internal static short BarrettReduce(short a)
         {
             short v = (short)(((1U << 26) + (MLKemEngine.Q / 2)) / MLKemEngine.Q);
             short t = (short)((v * a) >> 26);
@@ -29,10 +25,8 @@ namespace Org.BouncyCastle.Crypto.Kems.MLKem
             return (short)(a - t);
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        internal static short CondSubQ(short a)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		internal static short CondSubQ(short a)
         {
             a -= MLKemEngine.Q;
             a += (short)((a >> 15) & MLKemEngine.Q);

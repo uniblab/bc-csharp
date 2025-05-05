@@ -197,10 +197,8 @@ namespace Org.BouncyCastle.Pqc.Crypto.Bike
             }
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private static int ImplModAdd(int m, int x, int y)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private static int ImplModAdd(int m, int x, int y)
         {
             int t = x + y - m;
             return t + ((t >> 31) & m);

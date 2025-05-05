@@ -29,10 +29,8 @@ namespace Org.BouncyCastle.Math.EC.Rfc7748
         private static readonly int[] RootNegOne = { -0x01F15F50, -0x0079362D, 0x00478C4F, 0x0035697F, 0x005E8630,
             0x01FBD7A7, -0x00BFD9B1, -0x000F4D4B, 0x00027E0F, 0x00570649 };
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        public static void Add(int[] x, int[] y, int[] z)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static void Add(int[] x, int[] y, int[] z)
         {
 #if NETCOREAPP3_0_OR_GREATER
             if (Org.BouncyCastle.Runtime.Intrinsics.X86.Avx2.IsEnabled &&
@@ -101,10 +99,8 @@ namespace Org.BouncyCastle.Math.EC.Rfc7748
             z[zOff] += 1;
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        public static void Apm(int[] x, int[] y, int[] zp, int[] zm)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static void Apm(int[] x, int[] y, int[] zp, int[] zm)
         {
 #if NETCOREAPP3_0_OR_GREATER
             if (Org.BouncyCastle.Runtime.Intrinsics.X86.Avx2.IsEnabled &&
@@ -1099,10 +1095,8 @@ namespace Org.BouncyCastle.Math.EC.Rfc7748
             return false;
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        public static void Sub(int[] x, int[] y, int[] z)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		public static void Sub(int[] x, int[] y, int[] z)
         {
 #if NETCOREAPP3_0_OR_GREATER
             if (Org.BouncyCastle.Runtime.Intrinsics.X86.Avx2.IsEnabled &&

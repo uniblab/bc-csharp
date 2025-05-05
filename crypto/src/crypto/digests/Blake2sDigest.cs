@@ -686,10 +686,8 @@ namespace Org.BouncyCastle.Crypto.Digests
             }
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private static void G(uint m1, uint m2, ref uint a, ref uint b, ref uint c, ref uint d)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private static void G(uint m1, uint m2, ref uint a, ref uint b, ref uint c, ref uint d)
         {
             a += b + m1;
             d = Integers.RotateRight(d ^ a, 16);

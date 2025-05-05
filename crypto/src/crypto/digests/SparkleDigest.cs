@@ -247,17 +247,16 @@ namespace Org.BouncyCastle.Crypto.Digests
             m_bufPos = 0;
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
 #if NETCOREAPP2_1_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        private void ProcessBlock(ReadOnlySpan<byte> block, int steps)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private void ProcessBlock(ReadOnlySpan<byte> block, int steps)
         {
             uint t0 = Pack.LE_To_UInt32(block);
             uint t1 = Pack.LE_To_UInt32(block[4..]);
             uint t2 = Pack.LE_To_UInt32(block[8..]);
             uint t3 = Pack.LE_To_UInt32(block[12..]);
 #else
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
         private void ProcessBlock(byte[] buf, int off, int steps)
         {
             uint t0 = Pack.LE_To_UInt32(buf, off     );
@@ -266,8 +265,8 @@ namespace Org.BouncyCastle.Crypto.Digests
             uint t3 = Pack.LE_To_UInt32(buf, off + 12);
 #endif
 
-            // addition of a buffer block to the state
-            uint tx = ELL(t0 ^ t2);
+			// addition of a buffer block to the state
+			uint tx = ELL(t0 ^ t2);
             uint ty = ELL(t1 ^ t3);
             state[0] ^= t0 ^ ty;
             state[1] ^= t1 ^ tx;
@@ -287,10 +286,8 @@ namespace Org.BouncyCastle.Crypto.Digests
             }
         }
 
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#endif
-        private static uint ELL(uint x)
+		[MethodImpl( MethodImplOptions.AggressiveInlining )]
+		private static uint ELL(uint x)
         {
             return Integers.RotateRight(x, 16) ^ (x & 0xFFFFU);
         }
