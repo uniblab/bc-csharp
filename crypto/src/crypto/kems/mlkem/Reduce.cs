@@ -1,6 +1,4 @@
-﻿#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
-using System.Runtime.CompilerServices;
-#endif
+﻿using System.Runtime.CompilerServices;
 
 namespace Org.BouncyCastle.Crypto.Kems.MLKem
 {

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
 using System.Runtime.CompilerServices;
-#endif
 #if NETCOREAPP3_0_OR_GREATER
 using System.Buffers.Binary;
 using System.Runtime.InteropServices;

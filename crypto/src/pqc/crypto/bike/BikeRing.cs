@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-#if NETSTANDARD1_0_OR_GREATER || NETCOREAPP1_0_OR_GREATER
 using System.Runtime.CompilerServices;
-#endif
 #if NETCOREAPP3_0_OR_GREATER
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
